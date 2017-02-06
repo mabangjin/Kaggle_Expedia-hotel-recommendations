@@ -31,12 +31,18 @@ where |U| is the number of user events, P(k) is the precision at cutoff k, n is 
 - 2013, 2014년 데이터를 기반으로 2015년의 호텔 추천( y : hotel_cluster / MAP@5 )
 - 2013 : 2014 = 1:2의 비율
 
-- 데이터를 볼 때, 시각적으로 그래프를 그리는 것도 좋지만 그냥 데이터를 직접 들여다보는 방법을 추천(pd.set_option("max_columns", 40) 활용)
+- 데이터를 볼 때, 시각적으로 그래프를 그리는 것도 좋지만 그냥 데이터를 직접 들여다보는 방법을 추천
+~~~
+    pd.set_option("max_columns", 40) 
+~~~
+
 - 처음엔 데이터를 3~5메가정도로 줄여보고 모델링을 시작하는 것이 좋다
 - 위에서 5000~10000~100000명 정도로 잘라보기 => 단, 위에서 자르는 방법도 있지만 아래와 같이 랜덤으로 추출을 여러번 해서 검증
+
 ~~~
     df1 = df.ix[np.random.choice(df.index, 10000)]
 ~~~
+
 - 샘플링을 통해 랜덤포레스트의 important_feature가 변하는지 파악 => 만약 변한다면 데이터가 흔들린다는 증거 => 이런 경우 해결책은?
 - is_mobile같이 0, 1인 데이터는 재미가 없다. 복잡하게 나와있는 데이터가 더 의미가 있다는 것
 - check_in, out 데이터는 가로로 볼 것 => 요일같은 경우는 평일 / 주말 / 시즌별로 볼 것
@@ -49,4 +55,9 @@ where |U| is the number of user events, P(k) is the precision at cutoff k, n is 
 - Feature Engineering 하기 전 Train set 더 완성하기
 - 데이터 바라보기
 
+#### Question
+- 데이터 분석의 흐름 ( 캐글에 결과 제출하고 모델을 수정하는지 그냥 로그로스같은 지표를 보는지 ) 
+- 랜덤포레스트로 나온 값들을 몇개만 신뢰? 혹은 트리를 몇개 할 지
+- h2o.ai와 파이썬으로 분석하는 경우의 차이
+- 데이터 불균형이 되었으면 어떻게 해야되는지?
 
