@@ -87,3 +87,11 @@ where |U| is the number of user events, P(k) is the precision at cutoff k, n is 
 - Kaggle에서 반드시 모델을 사용해서 fit! 이러진 않음. Cluster 나 다양한 방법으로 실시함 ( 편견에 빠지지 말자 )
 
 - Feature 생각 더 해보기 
+
+### 2017.2.7
+- Data Leak이 존재 => train 데이터에서 test의 답이 있는 경우 => 모델 성능이 조금.. 
+- 이 Competition은 대부분 most_popular를 사용해서 풀었음 ( 많은 사람들이 모델에 비해 안정하다고 판단했나봄 ) => 08. other solution
+- most_popular가 baseline => 사람들의 특징을 파악해보기 ( Long tail 부분의 20% 사람들이 왜 특정 호텔을 예약했는지? 등 숫자로 나와 어렵겠지만 분석해보기 ) 
+- 의외로 cnt의 비중이 낮았음. 많은 사람들이 결제하기 전에 많이 유사한 호텔을 보고 결제한다고 생각했지만 데이터는 대부분 1번에, 아니면 많아봤자 2번에 결제를 함
+- srch_destination_id / hotel_cluster의 관계 (ex. "강남"을 검색한 후 나오는 호텔 목록 중 클릭한 것이 나옴. srch_destination_id로 묶으면 해당 지역의 호텔들이 나옴 )
+
