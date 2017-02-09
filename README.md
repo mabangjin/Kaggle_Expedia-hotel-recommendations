@@ -94,15 +94,23 @@ where |U| is the number of user events, P(k) is the precision at cutoff k, n is 
 - 의외로 cnt의 비중이 낮았음. 많은 사람들이 결제하기 전에 많이 유사한 호텔을 보고 결제한다고 생각했지만 데이터는 대부분 1번에, 아니면 많아봤자 2번에 결제를 함
 - srch_destination_id / hotel_cluster의 관계 (ex. "강남"을 검색한 후 나오는 호텔 목록 중 클릭한 것이 나옴. srch_destination_id로 묶으면 해당 지역의 호텔들이 나옴 )
 - Data Leak을 공략해보기
-- XGB 활용해보기 ( Docker 내에 xgboost 설치 완료, ~~Windows 로컬은 무언가 에러가..^_ㅠ~~  Windows 설치 완료 Docker는 메모리 문제로 loading이 힘든 상황)
+- XGB 활용해보기 ( Docker 내에 xgboost 설치 완료, ~~Windows 로컬은 무언가 에러가..^_ㅠ~~  Windows 설치 완료!! Docker는 메모리 문제로 loading이 힘든 상황)
 
 
 ### 2017.2.8
 - Leakege data를 활용 -> 0.49658
 - Dict 타입에 대한 심층적 이해 ( [link](http://pythonkr.github.io/pyconkr-2014/pdf/pyconkr-2014-02_dict.pdf) ) => json처럼 많은 데이터를 쉽게 처리해 메모리 효율성 증대
-- XGBoost 사용 -> 0.30335 => 음.... 확실히 랜덤포레스트보단 성능이 좋음
-- 많은 변수를 그냥 사용하는 경우 vs 차원축소(PCA)를 하는 경우
-- Long tail 부분 : long tail 유저들의 모습에서 패턴을 찾는 과정.. ( feature의 값들이 적은 것부터 찾아야 하는지, 많은 것부터 찾아야 하는지 어려움 )
-- 영화 컨택트를 보며 느낀점 : 언어학자/물리학자가 외계인의 언어를 이해하기 위한 과정이 나오는데 데이터 분석 과정이랑 너무 동일..! 영화를 보면서 NLP에 대한 관심이 증가했음. 섹시한 언어학자님
+- XGBoost 사용 -> 0.30335 => 음.... 랜덤포레스트보단 성능이 좋음
+- 많은 변수를 그냥 사용하는 경우 vs 차원축소(PCA)를 하는 경우  => 사용하는 경우도 있음! pca extreme value가 기존 데이터에서 누구를 따라오는지 보고 찾아볼 수 있음!
+- 영화 컨택트를 보며 느낀점 : 언어학자/물리학자가 외계인의 언어를 이해하기 위한 과정이 나오는데 데이터 분석 과정이랑 너무 동일..! 영화를 보면서 NLP에 대한 관심이 증가했음. 섹시한 언어학자님 => NLP 의 앞부분(vectorize)은 약간 코딩스러운..! 개발개발스러운 요소고 그 뒷부분이 머신러닝 부분이랑 동일함. 캐글을 통해 문제해결력을 풀어보기..!
+
+### 2017.2.9
+- 1위 script는 유저와 검색어 자료를 기반으로 hotel city를 찾아내는 방법
+- 나와있는 script가 아닌 나의 모델을 만들어보기 
+- srch_destination, is_booking, user_location_city, orig_destination_distance를 사용
+- srch_destination, is_booking 을 기반으로 1차적인 추천 => 추천 값이 nan가 나온 친구들은 srch_destination, user_location_city, orig_destination_distance 변수로 랜덤포레스트 후 예측 => 0.45197 / 0.46883
+- 하 마지막에 확인해보니 내가 새로 문제를 만들고 그 문제에 맞게 풀었던거임..ㅎㅎ 나니..? 후후..ㅎㅎㅎ 내 꾀에 내가 넘어간 꼴.. 이 값이 왜 높은진 이해할 수 없지만..
+
+
 
 
