@@ -21,9 +21,9 @@ Submissions are evaluated according to the [Mean Average Precision @ 5](https://
 where |U| is the number of user events, P(k) is the precision at cutoff k, n is the number of predicted hotel clusters.
 
 
-## Daily Diary
+## Daily Diary (John Park님 피드백 포함)
 
-### 2017.2.3  (John Park님 피드백 포함)
+### 2017.2.3  
 
 - Expedia Hotel Recommendation 시작
 - 데이터의 용량 약 3.79g -> pandas에서 읽을시 약 5g
@@ -83,10 +83,9 @@ where |U| is the number of user events, P(k) is the precision at cutoff k, n is 
 - 모델을 생성하고 Test set에 넣을 때 보통 13분 걸림 => 트리 수가 10일 경우
 - 트리를 증가 시키면 Memory Error.. rate 비율을 조정해도 결국 에러가 나서 딜레마 => 다른 방법을 찾아보기
 
-
-- Kaggle에서 반드시 모델을 사용해서 fit! 이러진 않음. Cluster 나 다양한 방법으로 실시함 ( 편견에 빠지지 말자 )
-
+- Kaggle에서 반드시 모델을 사용해서 fit! 이러진 않음. Cluster 나 다양한 방법으로 실시함 ( 꼭 모델로 해야하는 건 아니다. 편견에 빠지지 말자 )
 - Feature 생각 더 해보기 
+
 
 ### 2017.2.7
 - Data Leak이 존재 => train 데이터에서 test의 답이 있는 경우 => 모델 성능이 조금.. 
@@ -94,4 +93,16 @@ where |U| is the number of user events, P(k) is the precision at cutoff k, n is 
 - most_popular가 baseline => 사람들의 특징을 파악해보기 ( Long tail 부분의 20% 사람들이 왜 특정 호텔을 예약했는지? 등 숫자로 나와 어렵겠지만 분석해보기 ) 
 - 의외로 cnt의 비중이 낮았음. 많은 사람들이 결제하기 전에 많이 유사한 호텔을 보고 결제한다고 생각했지만 데이터는 대부분 1번에, 아니면 많아봤자 2번에 결제를 함
 - srch_destination_id / hotel_cluster의 관계 (ex. "강남"을 검색한 후 나오는 호텔 목록 중 클릭한 것이 나옴. srch_destination_id로 묶으면 해당 지역의 호텔들이 나옴 )
+- Data Leak을 공략해보기
+- XGB 활용해보기 ( Docker 내에 xgboost 설치 완료, ~~Windows 로컬은 무언가 에러가..^_ㅠ~~  Windows 설치 완료 Docker는 메모리 문제로 loading이 힘든 상황)
+
+
+### 2017.2.8
+- Leakege data를 활용 -> 0.49658
+- Dict 타입에 대한 심층적 이해 ( [link](http://pythonkr.github.io/pyconkr-2014/pdf/pyconkr-2014-02_dict.pdf) ) => json처럼 많은 데이터를 쉽게 처리해 메모리 효율성 증대
+- XGBoost 사용 -> 0.30335 => 음.... 확실히 랜덤포레스트보단 성능이 좋음
+- 많은 변수를 그냥 사용하는 경우 vs 차원축소(PCA)를 하는 경우
+- Long tail 부분 : long tail 유저들의 모습에서 패턴을 찾는 과정.. ( feature의 값들이 적은 것부터 찾아야 하는지, 많은 것부터 찾아야 하는지 어려움 )
+- 영화 컨택트를 보며 느낀점 : 언어학자/물리학자가 외계인의 언어를 이해하기 위한 과정이 나오는데 데이터 분석 과정이랑 너무 동일..! 영화를 보면서 NLP에 대한 관심이 증가했음. 섹시한 언어학자님
+
 
